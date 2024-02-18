@@ -1,0 +1,1 @@
+let enum_int x= let x = x+1 in  if x mod 2 = 1 then x/2 else -(x/2);;
