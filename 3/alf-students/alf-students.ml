@@ -76,5 +76,5 @@ let percent_passed l = let count= l |> List.length in
 let avg_grade l = 
   let l = l |> List.filter(fun s -> s.vote>=Some 18)
             |> List.map(fun s -> match s.vote with | Some x -> if s.laude then x+2 else x|_ -> 0)in
-  List.fold_left ( + ) 0 l / List.length l
+  (float_of_int )(List.fold_left ( + ) 0 l )/. (float_of_int) (List.length l)
 ;;
