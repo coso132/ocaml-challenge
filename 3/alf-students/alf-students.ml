@@ -45,9 +45,35 @@ let rec upgradeable l=
   let lf = List.filter canupgrade l in 
   concatname lf;;
 
-let rec upgrade = function
+(* let rec upgrade = function
   |[]->[]
   |a::t -> if not (canupgrade a) then a::upgrade t 
     else match a with {id=i;name=n;surname=sn;vote=v;laude=l} ->
       {id=i;name=n;surname=sn;vote=Some 18;laude=l}::upgrade t
+;; *)
+let rec upgrade l= l
+  |> List.map (fun s -> match s with 
+                        |e when canupgrade e -> {e with vote = Some 18}
+                        |e -> s)
+;;
+
+let wrong_laude l = l
+  |> List.filter (fun s -> s.vote<Some 30 && s.laude=true)
+  |> List.map (fun s -> s.name ^ " " ^ s.surname)
+;;
+
+let fix_laude l = l
+  |> List.map (fun s -> match s with 
+                        |s when s.vote<Some 30 && s.laude=true -> {s with laude = false}
+                        |s -> s)
+;;
+
+let percent_passed l = let count= l |> List.length in
+  (l |> List.filter(fun s -> s.vote>Some 17)
+    |> List.length)*100/count
+;;
+
+let avg_grade l = l 
+  |> List.filter(fun s -> s.vote>Some 17)
+  
 ;;
