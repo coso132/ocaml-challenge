@@ -1,0 +1,6 @@
+# dune init project ocamlchallenge
+# OCAMLPARAM: unset
+# Shared cache: disabled
+# Shared cache location: /home/coso/.cache/dune/db
+# Workspace root: /home/coso/uni/ocaml-challenge/ocamlchallenge
+# Auto-detected concurrency: 4

@@ -1,0 +1,4 @@
+(executable
+ (public_name ocamlchallenge)
+ (name main)
+ (libraries ocamlchallenge))
