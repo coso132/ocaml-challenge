@@ -29,14 +29,14 @@ let alf2023 = [
   { id="60/61/65592"; name="Zlatan"; surname="Zuncheddu"; vote=Some 18; laude = false }
 ];;
 (* let no_show = (function {vote=v; id=i} -> (v=None));; *)
-let rec concatid l1 = match l1 with |[]->[] |{vote=v; id = i}::t-> i::concatid t ;;
+let rec concatid l = match l with |[]->[] |{vote=v; id = i}::t-> i::concatid t ;;
 
 
 let rec id_no_show l = 
   let lf = List.filter (function {vote=v; id=i} -> (v=None)) l in 
   concatid lf;;
 
-let rec concatname l1 = match l1 with |[]->[] |{name=s;surname=sn}::t-> 
+let rec concatname l = match l with |[]->[] |{name=s;surname=sn}::t-> 
   (s ^ " "^sn)::concatname t ;;
 
 let canupgrade = (function {vote=v} -> ( v<=Some 17 && v>=Some 15));;
@@ -73,7 +73,8 @@ let percent_passed l = let count= l |> List.length in
     |> List.length)*100/count
 ;;
 
-let avg_grade l = l 
-  |> List.filter(fun s -> s.vote>Some 17)
-  
+let avg_grade l = 
+  let l = l |> List.filter(fun s -> s.vote>=Some 18)
+            |> List.map(fun s -> match s.vote with | Some x -> if s.laude then x+2 else x|_ -> 0)in
+  List.fold_left ( + ) 0 l / List.length l
 ;;
